@@ -1,4 +1,19 @@
-pub fn decode(s: String) -> String {
+/// Decode base64 String to Vec\<u8\>
+/// 
+/// # Example
+/// 
+/// ```
+/// use base64;
+/// 
+/// // vec![1,2,3,4,5] -> base64 -> "AQIDBAU="
+/// 
+/// let base64_vec = String::from("AQIDBAU=");
+/// let decoded_vec = base64::decode(&base64_vec);
+/// 
+/// assert_eq!(vec![1,2,3,4,5], decoded_vec);
+/// ```
+pub fn decode(s: &String) -> Vec<u8> {
+    use decoder::core::decode_four_bytes;
 
 	let mut output: Vec<u8> = Vec::new();
 	let mut cv = vec![0u8;4];
@@ -28,27 +43,6 @@ pub fn decode(s: String) -> String {
 
 		}
 	}
-
-	let output = unsafe{ String::from_utf8_unchecked(output) };
-	output
-}
-
-fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
-	use consts::CONV_TABLE;
-
-	let conv_table = CONV_TABLE.bytes().collect::<Vec<u8>>();
-
-	let bytes = cv.iter().map(|&c|{
-			conv_table.iter().position(|&b|b == c)
-				.unwrap_or(0) as u8
-		})
-		.collect::<Vec<u8>>();
-
-	let output= vec![
-		(bytes[0] << 2) + (bytes[1] >> 4),
-		(bytes[1] << 4) + (bytes[2] >> 2),
-		(bytes[2] << 6) + bytes[3]
-	];
 
 	output
 }

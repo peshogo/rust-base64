@@ -1,16 +1,7 @@
-/// This is the same as "simple_encode_decode" in the examples directory.
-/// youcan run it with
-/// 
-/// ```bash
-/// $ cargo run --example simple_encode_decode
-/// ```
+extern crate base64;
 
-mod encoder;
-mod decoder;
-mod consts;
-
-use encoder::{ encode_string, encode };
-use decoder::{ decode_string, decode };
+use base64::{ encode_string, encode };
+use base64::{ decode_string, decode };
 
 fn main() {
 	let v = vec![1,2,3,4,5];
@@ -21,7 +12,7 @@ fn main() {
     let decoded = decode(&encoded);
     println!("after   :{:?}", decoded);
 
-    println!();
+    println!("-----------------------------");
 
     let s = String::from("Hello, World!");
 
