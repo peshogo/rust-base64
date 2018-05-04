@@ -41,7 +41,9 @@ pub fn encode(s: String) -> String {
 }
 
 fn encode_three_bytes(cv: &Vec<u8>) -> String {
-	let conv_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".chars().collect::<Vec<char>>();
+	use consts::CONV_TABLE;
+
+	let conv_table = CONV_TABLE.chars().collect::<Vec<char>>();
 
 	let mut output = String::new();
 

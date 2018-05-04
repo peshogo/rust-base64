@@ -34,7 +34,9 @@ pub fn decode(s: String) -> String {
 }
 
 fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
-	let conv_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".bytes().collect::<Vec<u8>>();
+	use consts::CONV_TABLE;
+
+	let conv_table = CONV_TABLE.bytes().collect::<Vec<u8>>();
 
 	let bytes = cv.iter().map(|&c|{
 			conv_table.iter().position(|&b|{
