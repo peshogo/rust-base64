@@ -39,9 +39,7 @@ fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
 	let conv_table = CONV_TABLE.bytes().collect::<Vec<u8>>();
 
 	let bytes = cv.iter().map(|&c|{
-			conv_table.iter().position(|&b|{
-					b == c
-				})
+			conv_table.iter().position(|&b|b == c)
 				.unwrap_or(0) as u8
 		})
 		.collect::<Vec<u8>>();

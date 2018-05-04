@@ -57,9 +57,7 @@ fn encode_three_bytes(cv: &Vec<u8>) -> String {
 	// println!("bins {:?}", based_bins);
 
 	let based_chars: Vec<char> = based_bins.iter()
-		.map(|&bin|{
-			conv_table[bin as usize].to_owned()
-		})
+		.map(|&bin|conv_table[bin as usize].to_owned())
 		.collect();
 
 	// println!("{:?}", based_chars);
