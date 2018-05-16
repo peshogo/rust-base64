@@ -1,3 +1,5 @@
+use std::error::Error;
+
 /// Decode base64 String to normal String
 /// 
 /// # Example
@@ -12,9 +14,9 @@
 /// 
 /// assert_eq!("Hello, World!", normal_hello);
 /// ```
-pub fn decode_string(s: &String) -> String {
+pub fn decode_string(s: &String) -> Result<String, Box<Error>> {
     use decoder::decode;
-    let decoded_vec = decode(s);
-	let output = unsafe{ String::from_utf8_unchecked(decoded_vec) };
-	output
+    let decoded_vec = decode(s)?;
+	let output = String::from_utf8(decoded_vec)?;
+	Ok(output)
 }

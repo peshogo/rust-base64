@@ -1,3 +1,5 @@
+use std::{ fmt, error };
+
 pub fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
 	use consts::CONV_TABLE;
 
@@ -16,4 +18,23 @@ pub fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
 	];
 
 	output
+}
+
+#[derive(Debug)]
+pub struct Base64InvalidLengthError {}
+
+impl fmt::Display for Base64InvalidLengthError {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "The input of the base64 length was invalid")
+	}
+}
+
+impl error::Error for Base64InvalidLengthError {
+	fn description(&self) -> &str {
+		"The input of the base64 length was invalid"
+	}
+
+	fn cause(&self) -> Option<&error::Error> {
+		None
+	}
 }

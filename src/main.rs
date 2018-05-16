@@ -14,7 +14,7 @@ fn main() {
 
     println!("-----------------------------");
 
-    let s = "Hello, World!".to_owned();
+    let s = "Hello, World!".into();
 
     println!("before  :{}", s);
     let encoded = encode_string(&s);

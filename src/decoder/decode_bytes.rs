@@ -1,3 +1,5 @@
+use decoder::core::Base64InvalidLengthError;
+
 /// Decode base64 String to Vec\<u8\>
 /// 
 /// # Example
@@ -12,11 +14,16 @@
 /// 
 /// assert_eq!(vec![1,2,3,4,5], decoded_vec);
 /// ```
-pub fn decode(s: &String) -> Vec<u8> {
+pub fn decode(s: &String) -> Result<Vec<u8>,Base64InvalidLengthError> {
     use decoder::core::decode_four_bytes;
 
 	let mut output: Vec<u8> = Vec::new();
 	let mut cv = vec![0u8;4];
+
+	println!("{:?}",s.len());
+	if s.len() % 4 != 0 {
+		return Err(Base64InvalidLengthError{});
+	}
 
 	for (i, c) in s.as_bytes().iter().enumerate() {
 		let i = i % 4;
@@ -44,5 +51,5 @@ pub fn decode(s: &String) -> Vec<u8> {
 		}
 	}
 
-	output
+	Ok(output)
 }
