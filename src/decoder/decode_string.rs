@@ -15,7 +15,7 @@ use std::error::Error;
 /// assert_eq!("Hello, World!", normal_hello);
 /// ```
 pub fn decode_string(s: &String) -> Result<String, Box<Error>> {
-    use decoder::decode;
+    use crate::decoder::decode;
     let decoded_vec = decode(s)?;
 	let output = String::from_utf8(decoded_vec)?;
 	Ok(output)

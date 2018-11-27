@@ -1,4 +1,4 @@
-use encoder::encode_bytes::encode;
+use crate::encoder::encode_bytes::encode;
 
 /// Encodes a String to a base64 String
 /// 

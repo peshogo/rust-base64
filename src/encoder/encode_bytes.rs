@@ -1,4 +1,4 @@
-use encoder::core::encode_three_bytes;
+use crate::encoder::core::encode_three_bytes;
 
 /// Encode Vec\<u8\> to base64 String
 /// 

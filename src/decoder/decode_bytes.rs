@@ -1,4 +1,4 @@
-use decoder::core::Base64InvalidLengthError;
+use crate::decoder::core::Base64InvalidLengthError;
 
 /// Decode base64 String to Vec\<u8\>
 /// 
@@ -15,7 +15,7 @@ use decoder::core::Base64InvalidLengthError;
 /// assert_eq!(vec![1,2,3,4,5], decoded_vec);
 /// ```
 pub fn decode(s: &String) -> Result<Vec<u8>,Base64InvalidLengthError> {
-    use decoder::core::decode_four_bytes;
+    use crate::decoder::core::decode_four_bytes;
 
 	let mut output: Vec<u8> = Vec::new();
 	let mut cv = vec![0u8;4];

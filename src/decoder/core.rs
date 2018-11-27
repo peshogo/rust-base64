@@ -1,7 +1,7 @@
 use std::{ fmt, error };
 
 pub fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
-	use consts::CONV_TABLE;
+	use crate::consts::CONV_TABLE;
 
 	let conv_table = CONV_TABLE.bytes().collect::<Vec<u8>>();
 

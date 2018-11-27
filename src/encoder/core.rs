@@ -1,5 +1,5 @@
 pub fn encode_three_bytes(cv: &Vec<u8>) -> String {
-	use consts::CONV_TABLE;
+	use crate::consts::CONV_TABLE;
 
 	let conv_table = CONV_TABLE.chars().collect::<Vec<char>>();
 
