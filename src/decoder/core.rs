@@ -1,40 +1,21 @@
-use std::{ fmt, error };
+use super::DecodeError;
 
-pub fn decode_four_bytes(cv: &Vec<u8>) -> Vec<u8> {
-	use crate::consts::CONV_TABLE;
+pub fn decode_four_bytes(cv: &[u8; 4]) -> Result<[u8; 3], DecodeError> {
+    use crate::consts::CONVERT_TABLE;
 
-	let conv_table = CONV_TABLE.bytes().collect::<Vec<u8>>();
+    let mut bytes = [0u8; 4];
+    for (b, c) in bytes.iter_mut().zip(cv) {
+        *b = CONVERT_TABLE
+            .iter()
+            .position(|&v| v == *c)
+            .ok_or(DecodeError::InvalidValue(*b))? as u8;
+    }
 
-	let bytes = cv.iter().map(|&c|{
-			conv_table.iter().position(|&b|b == c)
-				.unwrap_or(0) as u8
-		})
-		.collect::<Vec<u8>>();
+    let output = [
+        (bytes[0] << 2) + (bytes[1] >> 4),
+        (bytes[1] << 4) + (bytes[2] >> 2),
+        (bytes[2] << 6) + bytes[3],
+    ];
 
-	let output= vec![
-		(bytes[0] << 2) + (bytes[1] >> 4),
-		(bytes[1] << 4) + (bytes[2] >> 2),
-		(bytes[2] << 6) + bytes[3]
-	];
-
-	output
-}
-
-#[derive(Debug)]
-pub struct Base64InvalidLengthError {}
-
-impl fmt::Display for Base64InvalidLengthError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		write!(f, "The input of the base64 length was invalid")
-	}
-}
-
-impl error::Error for Base64InvalidLengthError {
-	fn description(&self) -> &str {
-		"The input of the base64 length was invalid"
-	}
-
-	fn cause(&self) -> Option<&error::Error> {
-		None
-	}
+    Ok(output)
 }

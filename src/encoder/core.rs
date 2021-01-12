@@ -1,28 +1,16 @@
-pub fn encode_three_bytes(cv: &Vec<u8>) -> String {
-	use crate::consts::CONV_TABLE;
+pub fn encode_three_bytes(cv: &[u8; 3]) -> [u8; 4] {
+    use crate::consts::CONVERT_TABLE;
 
-	let conv_table = CONV_TABLE.chars().collect::<Vec<char>>();
+    let mut based_vals = [
+        cv[0] >> 2,
+        ((cv[0] << 6) >> 2) + (cv[1] >> 4),
+        ((cv[1] << 4) >> 2) + (cv[2] >> 6),
+        (cv[2] << 2) >> 2,
+    ];
 
-	let mut output = String::new();
+    for v in based_vals.iter_mut() {
+        *v = CONVERT_TABLE[*v as usize];
+    }
 
-	let based_bins = [
-		cv[0] >> 2,
-		((cv[0] << 6) >> 2) + (cv[1] >> 4),
-		((cv[1] << 4) >> 2) + (cv[2] >> 6),
-		(cv[2] << 2) >> 2
-	];
-
-	// println!("bins {:?}", based_bins);
-
-	let based_chars: Vec<char> = based_bins.iter()
-		.map(|&bin|conv_table[bin as usize].to_owned())
-		.collect();
-
-	// println!("{:?}", based_chars);
-
-	based_chars.iter().for_each(|c| {
-		output.push(*c);
-	});
-
-	output
+    based_vals
 }
