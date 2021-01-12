@@ -8,7 +8,7 @@ pub fn decode_four_bytes(cv: &[u8; 4]) -> Result<[u8; 3], DecodeError> {
         *b = CONVERT_TABLE
             .iter()
             .position(|&v| v == *c)
-            .ok_or(DecodeError::InvalidValue(*b))? as u8;
+            .ok_or(DecodeError::InvalidValue(*c))? as u8;
     }
 
     let output = [

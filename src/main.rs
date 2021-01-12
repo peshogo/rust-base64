@@ -8,7 +8,7 @@ fn main() {
 
     println!("before           :{:?}", v);
     let encoded = encode(&v);
-    println!("encoded          :{:?}", encoded);
+    println!("encoded          :{:X?}", encoded);
     println!(
         "encoded as string:{}",
         String::from_utf8(encoded.clone()).unwrap()
@@ -22,7 +22,7 @@ fn main() {
 
     println!("before  :{}", s);
     let encoded = encode_string(&s);
-    println!("encoded :{:?}", encoded);
+    println!("encoded :{:X?}", encoded);
     let decoded = decode_string(&encoded);
     println!("after   :{:?}", decoded);
 }

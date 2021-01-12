@@ -9,7 +9,7 @@ pub use self::decode_string::decode_string;
 
 use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Error, Debug, PartialEq)]
 pub enum DecodeError {
     #[error("There was an invalid base64 value {0} in input")]
     InvalidValue(u8),
