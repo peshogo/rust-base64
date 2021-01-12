@@ -16,7 +16,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: get cargo version
+      id: cargo-version
+      run: |
+        echo "::set-output name=cargo-version::$(cargo -V)"
+
+    - uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ steps.cargo-version.cargo-version }}
+
+    - name: update
+      run: cargo update
     - name: Build
-      run: cargo build --verbose
+      run: cargo build
     - name: Run tests
-      run: cargo test --verbose
+      run: cargo test
