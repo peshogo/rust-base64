@@ -4,10 +4,10 @@ use base64::{decode, decode_string};
 use base64::{encode, encode_string};
 
 fn main() {
-    let v = vec![1, 2, 3, 4, 5];
+    let input_bytes = [1, 2, 3, 4, 5];
 
-    println!("before           :{:?}", v);
-    let encoded = encode(&v);
+    println!("before           :{:?}", input_bytes);
+    let encoded = encode(&input_bytes);
     println!("encoded          :{:X?}", encoded);
     println!(
         "encoded as string:{}",
@@ -18,10 +18,10 @@ fn main() {
 
     println!("-----------------------------");
 
-    let s = "Hello, World!";
+    let input_str = "Hello, World!";
 
-    println!("before  :{}", s);
-    let encoded = encode_string(&s);
+    println!("before  :{}", input_str);
+    let encoded = encode_string(&input_str);
     println!("encoded :{:X?}", encoded);
     let decoded = decode_string(&encoded);
     println!("after   :{:?}", decoded);

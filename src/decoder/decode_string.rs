@@ -1,7 +1,7 @@
 use super::decode;
 use super::DecodeError;
 
-/// Decode base64 String to normal String
+/// Decode base64 `&[u8]` to `String`
 ///
 /// # Example
 ///
@@ -15,8 +15,8 @@ use super::DecodeError;
 ///
 /// assert_eq!("Hello, World!", normal_hello);
 /// ```
-pub fn decode_string(s: &[u8]) -> Result<String, DecodeError> {
-    let decoded_vec = decode(s)?;
+pub fn decode_string(input: &[u8]) -> Result<String, DecodeError> {
+    let decoded_vec = decode(input)?;
     let output = String::from_utf8(decoded_vec)?;
     Ok(output)
 }

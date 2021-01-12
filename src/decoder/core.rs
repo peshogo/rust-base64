@@ -1,10 +1,10 @@
 use super::DecodeError;
 
-pub fn decode_four_bytes(cv: &[u8; 4]) -> Result<[u8; 3], DecodeError> {
+pub fn decode_four_bytes(input: &[u8; 4]) -> Result<[u8; 3], DecodeError> {
     use crate::consts::CONVERT_TABLE;
 
-    let mut bytes = [0u8; 4];
-    for (b, c) in bytes.iter_mut().zip(cv) {
+    let mut decode_group = [0u8; 4];
+    for (b, c) in decode_group.iter_mut().zip(input) {
         *b = CONVERT_TABLE
             .iter()
             .position(|&v| v == *c)
@@ -12,9 +12,9 @@ pub fn decode_four_bytes(cv: &[u8; 4]) -> Result<[u8; 3], DecodeError> {
     }
 
     let output = [
-        (bytes[0] << 2) + (bytes[1] >> 4),
-        (bytes[1] << 4) + (bytes[2] >> 2),
-        (bytes[2] << 6) + bytes[3],
+        (decode_group[0] << 2) + (decode_group[1] >> 4),
+        (decode_group[1] << 4) + (decode_group[2] >> 2),
+        (decode_group[2] << 6) + decode_group[3],
     ];
 
     Ok(output)

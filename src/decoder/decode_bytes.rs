@@ -1,7 +1,7 @@
 use super::core::decode_four_bytes;
 use super::DecodeError;
 
-/// Decode base64 String to Vec\<u8\>
+/// Decode base64 `&[u8]` to `Vec<u8>`
 ///
 /// # Example
 ///
@@ -15,34 +15,34 @@ use super::DecodeError;
 ///
 /// assert_eq!(&[1,2,3,4,5], &decoded_vec[..]);
 /// ```
-pub fn decode(s: &[u8]) -> Result<Vec<u8>, DecodeError> {
+pub fn decode(input: &[u8]) -> Result<Vec<u8>, DecodeError> {
     let mut output: Vec<u8> = Vec::new();
-    let mut cv = [0u8; 4];
+    let mut decode_group = [0u8; 4];
 
-    println!("{:?}", s.len());
-    if s.len() % 4 != 0 {
+    println!("{:?}", input.len());
+    if input.len() % 4 != 0 {
         return Err(DecodeError::InvalidLength);
     }
 
-    for (i, c) in s.iter().enumerate() {
+    for (i, c) in input.iter().enumerate() {
         let i = i % 4;
 
-        cv[i] = *c;
+        decode_group[i] = *c;
 
         if i % 4 == 3 {
-            if cv[2] == b'=' {
-                cv[2] = b'A';
-                cv[3] = b'A';
+            if decode_group[2] == b'=' {
+                decode_group[2] = b'A';
+                decode_group[3] = b'A';
 
-                let utf8_byte_slice = decode_four_bytes(&cv)?;
+                let utf8_byte_slice = decode_four_bytes(&decode_group)?;
                 output.push(utf8_byte_slice[0]);
-            } else if cv[3] == b'=' {
-                cv[3] = b'A';
+            } else if decode_group[3] == b'=' {
+                decode_group[3] = b'A';
 
-                let utf8_byte_slice = decode_four_bytes(&cv)?;
+                let utf8_byte_slice = decode_four_bytes(&decode_group)?;
                 output.extend_from_slice(&utf8_byte_slice[..2]);
             } else {
-                let utf8_byte_slice = decode_four_bytes(&cv)?;
+                let utf8_byte_slice = decode_four_bytes(&decode_group)?;
                 output.extend_from_slice(&utf8_byte_slice);
             }
         }

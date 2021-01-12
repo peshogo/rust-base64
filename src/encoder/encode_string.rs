@@ -1,6 +1,6 @@
 use crate::encoder::encode_bytes::encode;
 
-/// Encodes a `String` to a base64 bytes
+/// Encodes a `String` to a base64 `Vec<u8>`
 ///
 /// # Examples
 ///
@@ -12,6 +12,6 @@ use crate::encoder::encode_bytes::encode;
 ///
 /// assert_eq!(b"SGVsbG8sIFdvcmxkIQ==", &base64_hello[..]);
 /// ```
-pub fn encode_string(s: &str) -> Vec<u8> {
-    encode(s.as_bytes())
+pub fn encode_string(input: &str) -> Vec<u8> {
+    encode(input.as_bytes())
 }

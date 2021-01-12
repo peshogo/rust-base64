@@ -1,6 +1,6 @@
 use crate::encoder::core::encode_three_bytes;
 
-/// Encode `Vec<u8>` to base64 bytes
+/// Encode `Vec<u8>` to base64 `Vec<u8>`
 ///
 /// # Example
 ///
