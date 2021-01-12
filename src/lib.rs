@@ -1,4 +1,5 @@
 #![warn(missing_docs)]
+#![forbid(unsafe_code)]
 
 //! Base64
 //! a library for encoding and decoding base64

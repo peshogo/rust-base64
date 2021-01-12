@@ -1,5 +1,4 @@
 use base64::{decode, decode_string, DecodeError};
-use base64::{encode, encode_string};
 
 #[test]
 fn decode_invalid_char() {
